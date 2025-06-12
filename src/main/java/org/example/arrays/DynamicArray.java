@@ -1,23 +1,23 @@
-package org.example;
+package org.example.arrays;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DynamicIntegerArray {
+public class DynamicArray<E> {
 
-    private Integer[] elementData;
+    private Object[] elementData;
 
     private int size = 0;
 
-    public DynamicIntegerArray() {
+    public DynamicArray() {
         this(10);
     }
 
-    public DynamicIntegerArray(int initialCapacity) {
-        this.elementData = new Integer[initialCapacity];
+    public DynamicArray(int initialCapacity) {
+        this.elementData = new Object[initialCapacity];
     }
 
-    public boolean add(Integer item){
+    public boolean add(Object item){
         if (size == elementData.length) {
             grow();
         }
@@ -25,7 +25,8 @@ public class DynamicIntegerArray {
         return true;
     }
 
-    public Integer get(int index){
+    @SuppressWarnings("unchecked")
+    public E get(int index){
 
         // Objects.checkIndex(index, elementData.length);
 
@@ -33,12 +34,13 @@ public class DynamicIntegerArray {
             System.out.println("Index is out bounds of the actual array length");
             return null;
         }
-        return elementData[index];
+        return (E) elementData[index];
     }
 
-    public Integer remove(int index){
+    @SuppressWarnings("unchecked")
+    public E remove(int index){
         Objects.checkIndex(index, elementData.length);
-        Integer oldValue = elementData[index];
+        Object oldValue = elementData[index];
 
         int newSize = size - 1;
         if (newSize > index) {
@@ -46,12 +48,11 @@ public class DynamicIntegerArray {
         }
         elementData[newSize] = null;
         size = newSize;
-        return oldValue;
+        return (E) oldValue;
     }
 
-    public boolean remove(Integer item){
+    public boolean remove(Object item){
         int i = 0;
-
         found: {
             if (item == null) {
                 for (; i < size; i++) {
@@ -86,7 +87,7 @@ public class DynamicIntegerArray {
     }
 
     public static void main(String[] args) {
-        DynamicIntegerArray array = new DynamicIntegerArray(3);
+        DynamicArray<Integer> array = new DynamicArray<>(3);
         array.add(12);
         array.add(13);
         array.add(14);

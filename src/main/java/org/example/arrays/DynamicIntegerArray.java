@@ -1,23 +1,23 @@
-package org.example;
+package org.example.arrays;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class DynamicArray<E> {
+public class DynamicIntegerArray {
 
-    private Object[] elementData;
+    private Integer[] elementData;
 
     private int size = 0;
 
-    public DynamicArray() {
+    public DynamicIntegerArray() {
         this(10);
     }
 
-    public DynamicArray(int initialCapacity) {
-        this.elementData = new Object[initialCapacity];
+    public DynamicIntegerArray(int initialCapacity) {
+        this.elementData = new Integer[initialCapacity];
     }
 
-    public boolean add(Object item){
+    public boolean add(Integer item){
         if (size == elementData.length) {
             grow();
         }
@@ -25,8 +25,7 @@ public class DynamicArray<E> {
         return true;
     }
 
-    @SuppressWarnings("unchecked")
-    public E get(int index){
+    public Integer get(int index){
 
         // Objects.checkIndex(index, elementData.length);
 
@@ -34,13 +33,12 @@ public class DynamicArray<E> {
             System.out.println("Index is out bounds of the actual array length");
             return null;
         }
-        return (E) elementData[index];
+        return elementData[index];
     }
 
-    @SuppressWarnings("unchecked")
-    public E remove(int index){
+    public Integer remove(int index){
         Objects.checkIndex(index, elementData.length);
-        Object oldValue = elementData[index];
+        Integer oldValue = elementData[index];
 
         int newSize = size - 1;
         if (newSize > index) {
@@ -48,11 +46,12 @@ public class DynamicArray<E> {
         }
         elementData[newSize] = null;
         size = newSize;
-        return (E) oldValue;
+        return oldValue;
     }
 
-    public boolean remove(Object item){
+    public boolean remove(Integer item){
         int i = 0;
+
         found: {
             if (item == null) {
                 for (; i < size; i++) {
@@ -87,7 +86,7 @@ public class DynamicArray<E> {
     }
 
     public static void main(String[] args) {
-        DynamicArray<Integer> array = new DynamicArray<>(3);
+        DynamicIntegerArray array = new DynamicIntegerArray(3);
         array.add(12);
         array.add(13);
         array.add(14);
